@@ -38,4 +38,21 @@ func AddTask(c *gin.Context) {
 }
 
 func UpdateTask(c *gin.Context) {
+	data := model.Task{}
+	if err := c.ShouldBindBodyWithJSON(&data); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	id := c.Param("id")
+	result := repository.DB.Model(&model.Task{}).Where("id = ?", id).Updates(data)
+	if result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status":  "success",
+		"message": "Task updated successfully",
+	})
 }

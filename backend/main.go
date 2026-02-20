@@ -14,6 +14,7 @@ func main() {
 	r := gin.Default()
 	r.Use(middleware.DatabaseCheckMiddleware(repository.DB))
 	r.POST("/api/tasks", handler.AddTask)
+	r.PUT("/api/tasks", handler.UpdateTask)
 
 	if err := r.Run(":8080"); err != nil {
 		log.Fatal("Error menjalankan server", err)
