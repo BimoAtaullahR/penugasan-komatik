@@ -1,0 +1,83 @@
+{
+  "api_name": "Fokus App API",
+  "version": "1.0.0",
+  "base_url": "http://localhost:8080/api",
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/tasks",
+      "description": "Create a new focus task",
+      "request_body": {
+        "title": "string",
+        "total_sessions": "integer",
+        "duration_per_session": "integer",
+        "break_duration": "integer"
+      },
+      "responses": {
+        "201": {
+          "code": 201,
+          "status": "success",
+          "data": {
+            "id": "integer",
+            "title": "string",
+            "total_sessions": "integer",
+            "duration_per_session": "integer",
+            "break_duration": "integer",
+            "created_at": "string_iso8601"
+          }
+        },
+        "400": {
+          "code": 400,
+          "status": "error",
+          "message": "Invalid input data"
+        }
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/tasks/:id",
+      "description": "Update an existing task by ID",
+      "parameters": {
+        "id": "integer"
+      },
+      "request_body": {
+        "title": "string",
+        "total_sessions": "integer",
+        "duration_per_session": "integer",
+        "break_duration": "integer"
+      },
+      "responses": {
+        "200": {
+          "code": 200,
+          "status": "success",
+          "message": "Task updated successfully"
+        },
+        "404": {
+          "code": 404,
+          "status": "error",
+          "message": "Task not found"
+        }
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/tasks/:id",
+      "description": "Delete a task by ID",
+      "parameters": {
+        "id": "integer"
+      },
+      "responses": {
+        "200": {
+          "code": 200,
+          "status": "success",
+          "message": "Task deleted successfully"
+        },
+        "404": {
+          "code": 404,
+          "status": "error",
+          "message": "Task not found"
+        }
+      }
+    }
+  ]
+}
