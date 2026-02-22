@@ -11,6 +11,8 @@ import (
 )
 
 func main() {
+	repository.ConnectDatabase()
+
 	r := gin.Default()
 	r.Use(middleware.DatabaseCheckMiddleware(repository.DB))
 	r.POST("/api/tasks", handler.AddTask)
