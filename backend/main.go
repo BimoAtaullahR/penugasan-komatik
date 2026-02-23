@@ -18,7 +18,14 @@ func main() {
 
 	config := cors.DefaultConfig()
 	config.AllowAllOrigins = true
-	config.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type", "Bypass-Tunnel-Reminder"}
+	config.AllowHeaders = []string{
+		"Origin",
+		"Content-Length",
+		"Content-Type",
+		"Accept",                     // Wajib untuk Axios
+		"ngrok-skip-browser-warning", // Wajib untuk tembus Ngrok
+		"Bypass-Tunnel-Reminder",
+	}
 	r.Use(cors.New(config))
 
 	r.Use(middleware.DatabaseCheckMiddleware(repository.DB))

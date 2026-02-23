@@ -1,15 +1,15 @@
 import axios from "axios";
 
-// Ganti dengan URL yang kamu dapat dari terminal localtunnel!
-// PASTIKAN pakai https:// dan JANGAN ADA port :8080 di belakangnya
-const BASE_URL = "https://famous-jokes-stand.loca.lt";
+// Masukkan IP Address Hotspot-mu di sini
+const BASE_URL = "http://10.166.168.136:8080/api";
 
 const api = axios.create({
   baseURL: BASE_URL,
-  timeout: 10000, // Kita naikkan jadi 10 detik karena lewat tunnel kadang sedikit delay
+  timeout: 5000,
+  // HAPUS SEMUA HEADERS ngrok atau localtunnel yang aneh-aneh!
   headers: {
-    // Header ini WAJIB ditambahkan agar Localtunnel tidak memblokir API kita
-    "Bypass-Tunnel-Reminder": "true",
+    Accept: "application/json",
+    "Content-Type": "application/json",
   },
 });
 
@@ -18,13 +18,11 @@ export const createTask = async (taskData) => {
     const response = await api.post("/tasks", taskData);
     return response.data;
   } catch (error) {
-    if (error.response) {
-      throw new Error(
-        error.response.data.error || "Terjadi kesalahan di server",
-      );
-    } else {
-      throw new Error("Gagal terhubung ke server. Cek koneksi tunnel.");
-    }
+    console.log("=== ERROR DARI SERVER ===");
+    console.log(error.message);
+    throw new Error(
+      "Gagal terhubung. Pastikan HP dan Laptop di Hotspot yang sama.",
+    );
   }
 };
 
