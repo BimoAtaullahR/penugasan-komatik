@@ -7,6 +7,7 @@ import (
 	"backend/middleware"
 	"backend/repository"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,6 +15,12 @@ func main() {
 	repository.ConnectDatabase()
 
 	r := gin.Default()
+
+	config := cors.DefaultConfig()
+	config.AllowAllOrigins = true
+	config.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type", "Bypass-Tunnel-Reminder"}
+	r.Use(cors.New(config))
+
 	r.Use(middleware.DatabaseCheckMiddleware(repository.DB))
 	r.POST("/api/tasks", handler.AddTask)
 	r.PUT("/api/tasks", handler.UpdateTask)

@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Ganti dengan URL yang kamu dapat dari terminal localtunnel!
 // PASTIKAN pakai https:// dan JANGAN ADA port :8080 di belakangnya
-const BASE_URL = "https://tidy-shrimps-sip.loca.lt/api";
+const BASE_URL = "https://famous-jokes-stand.loca.lt";
 
 const api = axios.create({
   baseURL: BASE_URL,
